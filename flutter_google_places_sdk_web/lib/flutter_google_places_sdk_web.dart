@@ -4,7 +4,7 @@ library places;
 import 'dart:async';
 import 'dart:developer';
 import 'dart:js_interop';
-import 'dart:js_util';
+import 'dart:js_interop_unsafe';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -215,7 +215,7 @@ class FlutterGooglePlacesSdkWebPlugin extends FlutterGooglePlacesSdkPlatform {
       id: place.placeId,
       address: place.formattedAddress,
       addressComponents: place.addressComponents?.map(_parseAddressComponent).cast<inter.AddressComponent>().toList(growable: false),
-      businessStatus: _parseBusinessStatus(getProperty(place, 'business_status')),
+      businessStatus: _parseBusinessStatus(place.getProperty('business_status'.toJS)),
       attributions: place.htmlAttributions?.cast<String>(),
       latLng: _parseLatLang(place.geometry?.location),
       name: place.name,
